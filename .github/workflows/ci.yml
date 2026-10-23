@@ -57,3 +57,11 @@ jobs:
 
       - name: Show image
         run: docker images demo-app
+            
+      - name: Trivy scan
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: demo-app:${{ github.sha }}
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: 1
